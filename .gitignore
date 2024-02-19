@@ -33,20 +33,5 @@ ehthumbs.db
 # ESLint
 .eslintcache
 
-# Cypress videos, screenshots, and other artifacts
-/cypress/videos/
-/cypress/screenshots/
-/cypress/downloads/
-
-# Pinia
-/pinia/
-
-# Miscellaneous
-*.log
-*.lock
-*.sqlite
-*.sqlite3
-*.json
-
 # OS generated files
 .DS_Store*
