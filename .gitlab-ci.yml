@@ -1,7 +1,7 @@
 # .gitlab-ci.yml
 
 # Specify the image to use for the job
-image: cypress/browsers:node14.17.0
+image: node:18.17.1
 
 # Define the stages of the pipeline
 stages:
