@@ -1,0 +1,22 @@
+# .gitlab-ci.yml
+
+# Specify the image to use for the job
+image: cypress/browsers:node14.17.0
+
+# Define the stages of the pipeline
+stages:
+  - test
+
+# Job to run tests
+test:
+  stage: test
+  before_script:
+    # Install dependencies
+    - npm install
+
+  script:
+    # Run unit tests with Vitest
+    - npm run test:unit
+
+    # Run end-to-end tests with Cypress
+    - npm run test:e2e:dev
