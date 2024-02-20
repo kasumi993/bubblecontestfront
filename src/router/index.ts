@@ -10,13 +10,13 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
+      redirect: '/home',
       component: mainContainer,
       meta: { bodyClass: '' },
       children: [
         {
           path: '/home',
           name: 'home.index',
-          redirect: '/',
           component: HomeView,
           meta: {
             auth: true,
@@ -31,15 +31,6 @@ const router = createRouter({
           // which is lazy-loaded when the route is visited.
         }
       ],
-    },
-
-    {
-      path: '/',
-      redirect: '/home',
-    },
-    {
-      path: '/*',
-      redirect: '/home',
     },
   ]
 })
