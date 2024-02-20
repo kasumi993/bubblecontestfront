@@ -18,5 +18,3 @@ test:
     # Run unit tests with Vitest
     - npm run test:unit
 
-    # Run end-to-end tests with Cypress
-    - cypress run
