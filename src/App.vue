@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { RouterLink } from 'vue-router'
-import HomeComponent from './components/HomeComponent.vue'
 </script>
 
 <template>
