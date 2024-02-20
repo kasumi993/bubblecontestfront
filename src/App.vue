@@ -1,8 +1,15 @@
 <script setup lang="ts">
+import HomeView from './views/HomeView.vue'
 </script>
 
 <template>
-  <router-view></router-view>
+  <div>
+    <img
+      alt="Vue logo"
+      src="/bubble_logo.png"
+    >
+    <HomeView />
+  </div>
 </template>
 
 
@@ -12,7 +19,6 @@ import initDatabase from '../init.json'
 const pb = new PocketBase('http://127.0.0.1:8090')
 pb.autoCancellation(false)
 await pb.admins.authWithPassword(import.meta.env.VITE_EMAIL, import.meta.env.VITE_PASSWORD)
-
 try{
   await pb.collections.getOne('contests')
 }catch(err){
@@ -72,5 +78,10 @@ export default {
 </script>
 
 <style lang="scss">
+img {
+  width: 300px;
+  height: auto;
+  margin: 0 auto; 
+}
 @import "styles/styles.scss";
 </style>
