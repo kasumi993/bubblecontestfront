@@ -11,7 +11,6 @@ stages:
 test:
   stage: test
   before_script:
-    - apt-get update && apt-get install -y xvfb
     # Install dependencies
     - npm install
     # Install Cypress globally
@@ -21,5 +20,5 @@ test:
     # Run unit tests with Vitest
     - npm run test:unit
     # Run cypress tests
-    - cypress run
+    - npx cypress run
 
