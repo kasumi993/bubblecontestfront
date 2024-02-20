@@ -4,31 +4,7 @@ import HomeComponent from './components/HomeComponent.vue'
 </script>
 
 <template>
-  <header>
-    <img
-      alt="Vue logo"
-      class="logo"
-      src="@/assets/logo.svg"
-      width="125"
-      height="125"
-    >
-
-    <div class="wrapper">
-      <HomeComponent msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">
-          HomeComponent
-        </RouterLink>
-        <RouterLink to="/contest">
-          Contest
-        </RouterLink>
-      </nav>
-    </div>
-    <button @click="update()">
-      updateBDD
-    </button>
-  </header>
+  <router-view></router-view>
 </template>
 
 
