@@ -16,9 +16,9 @@ test:
     - npm install
     # Install Cypress globally
     - npm install -g cypress
-    - npm run dev
 
   script:
+    - npm run dev
     # Run unit tests with Vitest
     - npm run test:unit
     # Run cypress tests
