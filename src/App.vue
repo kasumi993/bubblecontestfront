@@ -11,7 +11,7 @@ import PocketBase from 'pocketbase'
 import initDatabase from '../init.json'
 const pb = new PocketBase('http://127.0.0.1:8090')
 pb.autoCancellation(false)
-await pb.admins.authWithPassword('helder.bastosg@gmail.com', 'Azertyuiop12')
+await pb.admins.authWithPassword(import.meta.env.VITE_EMAIL, import.meta.env.VITE_PASSWORD)
 
 try{
   await pb.collections.getOne('contests')
