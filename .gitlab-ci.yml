@@ -17,4 +17,6 @@ test:
   script:
     # Run unit tests with Vitest
     - npm run test:unit
+    # Run cypress tests
+    - cypress run
 
