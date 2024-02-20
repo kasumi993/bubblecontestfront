@@ -25,8 +25,34 @@ import HelloWorld from './components/HelloWorld.vue'
         </RouterLink>
       </nav>
     </div>
+    <button @click="update()">
+      updateBDD
+    </button>
   </header>
 </template>
+
+<script lang="ts">
+import PocketBase from 'pocketbase'
+import initDatabase from '../init.json'
+const pb = new PocketBase('http://127.0.0.1:8090')
+pb.autoCancellation(false)
+
+const updateBDD = async (element: NonNullable<object>) => {
+  const record = await pb.collection('contest').create(element)
+  console.log(record)
+}
+
+export default {
+  methods: {
+    update() {
+      initDatabase.initBDD.forEach(async (element) => {
+        await updateBDD(element)
+      })
+    }
+  }
+}
+
+</script>
 
 <style scoped>
 header {
