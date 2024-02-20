@@ -48,7 +48,11 @@ npm run test:unit
 ### Run End-to-End Tests with [Cypress](https://www.cypress.io/)
 
 ```sh
-npm run test:e2e:dev
+npm run test:e2e:dev 
+```
+or (command line test)
+```sh
+npm cypress run 
 ```
 
 This runs the end-to-end tests against the Vite development server.
