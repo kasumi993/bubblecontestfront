@@ -11,14 +11,16 @@ stages:
 test:
   stage: test
   before_script:
+    - apt-get update && apt-get install -y libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libnss3 libxss1 libasound2 libxtst6 xauth xvfb
     # Install dependencies
     - npm install
     # Install Cypress globally
     - npm install -g cypress
 
   script:
+    - npm run dev&
     # Run unit tests with Vitest
     - npm run test:unit
     # Run cypress tests
-    - cypress run
+    - npx cypress run
 
