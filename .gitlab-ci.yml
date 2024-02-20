@@ -11,6 +11,7 @@ stages:
 test:
   stage: test
   before_script:
+    - apt-get update && apt-get install -y xvfb
     # Install dependencies
     - npm install
     # Install Cypress globally
