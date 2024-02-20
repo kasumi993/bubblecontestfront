@@ -1,11 +1,11 @@
 import { describe, it, expect } from 'vitest'
 
-import { mount } from "@vue/test-utils";
-import Home from "../Home.vue";
+import { mount } from '@vue/test-utils'
+import HomeComponent from '../HomeComponent.vue'
 
-describe("Home", () => {
-  it("renders properly", () => {
-    const wrapper = mount(Home, { props: { msg: "Hello Vitest" } });
-    expect(wrapper.text()).toContain("Hello Vitest");
-  });
-});
+describe('HomeComponent', () => {
+  it('renders properly', () => {
+    const wrapper = mount(HomeComponent, { props: { msg: 'Hello Vitest' } })
+    expect(wrapper.text()).toContain('Hello Vitest')
+  })
+})

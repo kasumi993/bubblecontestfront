@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from "vue-router";
-import Home from "./components/Home.vue";
+import { RouterLink } from 'vue-router'
+import HomeComponent from './components/HomeComponent.vue'
 </script>
 
 <template>
@@ -14,11 +14,15 @@ import Home from "./components/Home.vue";
     >
 
     <div class="wrapper">
-      <Home msg="You did it!" />
+      <HomeComponent msg="You did it!" />
 
       <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/contest">Contest</RouterLink>
+        <RouterLink to="/">
+          HomeComponent
+        </RouterLink>
+        <RouterLink to="/contest">
+          Contest
+        </RouterLink>
       </nav>
     </div>
     <button @click="update()">
@@ -27,10 +31,6 @@ import Home from "./components/Home.vue";
   </header>
 </template>
 
-
-<style lang="scss">
-@import "styles/styles.scss";
-</style>
 
 <script lang="ts">
 import PocketBase from 'pocketbase'
@@ -54,3 +54,7 @@ export default {
 }
 
 </script>
+
+<style lang="scss">
+@import "styles/styles.scss";
+</style>
