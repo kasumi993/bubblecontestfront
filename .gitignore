@@ -5,7 +5,6 @@ dist/
 # Environment files
 .env.local
 .env.*.local
-.env
 
 # Build files
 /.vite/

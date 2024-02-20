@@ -13,6 +13,5 @@
   ],
   "compilerOptions": {
     "module": "NodeNext"
-  },
-  "lib": ["WebWorker"]
+  }
 }
