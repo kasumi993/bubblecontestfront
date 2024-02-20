@@ -13,6 +13,8 @@ test:
   before_script:
     # Install dependencies
     - npm install
+    # Install Cypress globally
+    - npm install -g cypress
 
   script:
     # Run unit tests with Vitest
