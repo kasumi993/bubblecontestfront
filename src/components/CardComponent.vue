@@ -1,30 +1,15 @@
 <template>
-  <div class="card">
-    {{ name }}
+  <div>
+    <a href="#" class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+
+      <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ name }}</h5>
+      <p class="font-normal text-gray-700 dark:text-gray-400">Here is an interesting contest about....</p>
+    </a>
   </div>
 </template>
 
-<script setup lang="ts">
-defineProps({
-  name
-})
+<script>
+export default {
+  props: ["name"],
+}
 </script>
-
-<style scoped>
-.card {
-  /* Styles de votre carte */
-  padding: 10px;
-  margin: 5px;
-  border: 1px solid #eee;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  cursor: pointer;
-}
-
-.card:hover {
-  /* Styles de votre carte au survol */
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-    transform: translateY(-2px);
-    background-color: #f9f9f9;
-}
-</style>
