@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { onBeforeMount, ref } from 'vue'
 import CardComponent from '../components/CardComponent.vue'
-const surveys = ref([])
 
 import SurveyService from '@/services/surveyService'
 import { useRouter } from 'vue-router'
@@ -9,7 +8,7 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 const surveys = ref([])
 
-const getSurveys = async () => {
+const getSurveys2 = async () => {
   const response = await SurveyService.getSurveys()
   surveys.value = response
   console.log('surveys')
@@ -21,12 +20,17 @@ const getSurveys = async () => {
 const goToContest = (param) => {
   console.log('param')
   console.log(param)
+  localStorage.setItem('choosenItems', JSON.stringify([]))
+  localStorage.setItem('currentIndex', JSON.stringify(0))
+  localStorage.setItem('selection', JSON.stringify([]))
+  localStorage.setItem('returnSelectionItems', JSON.stringify([]))
   router.push({ name: 'contest', params: { id: param } })
+
 }
 
 
 onBeforeMount(() => {
-  getSurveys()
+  getSurveys2()
 })
 </script>
 

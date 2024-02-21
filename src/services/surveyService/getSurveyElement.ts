@@ -1,12 +1,11 @@
+import { headersWithAuthorization } from '@/utils'
+
 export async function getSurveyElement(surveyId: number) {
   const origin = import.meta.env.VITE_API_URI
   const requestOptions = {
     method: 'GET',
-    headers: {
-      'Content-Type': 'application/json'
-    }
+    headers: headersWithAuthorization
   }
-
   try {
     const response = await fetch(`${origin}/surveys/${surveyId}`, requestOptions)
     if (!response.ok) {

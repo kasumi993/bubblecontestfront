@@ -3,6 +3,7 @@ import HomeView from '@/views/HomeView.vue'
 import ContestView from '@/views/ContestView.vue'
 import LoginView from '@/views/LoginView.vue'
 import mainContainer from '@/containers/mainContainer.vue'
+import ResponseView from '@/views/ResponseView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -29,6 +30,11 @@ const router = createRouter({
           // route level code-splitting
           // this generates a separate chunk (About.[hash].js) for this route
           // which is lazy-loaded when the route is visited.
+        },
+        {
+          path: '/results/:id',
+          name: 'results',
+          component: ResponseView
         },
         {
           path: '/login',
