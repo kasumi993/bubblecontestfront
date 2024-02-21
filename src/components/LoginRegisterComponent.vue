@@ -1,0 +1,185 @@
+<template>
+  <div class="min-h-screen bg-gray-100 flex items-center justify-center">
+    <div
+      v-if="!currentUser"
+      class="bg-white p-8 rounded-lg shadow-md w-full max-w-md space-y-6"
+    >
+      <h1 class="text-2xl font-bold mb-4 text-center">
+        {{ loginMode ? "Se connecter" : "Créer un compte" }}
+      </h1>
+      <form
+        class="space-y-4"
+        @submit.prevent="loginMode ? doLogin() : doCreateAccount()"
+      >
+        <div class="flex flex-col">
+          <label
+            for="username"
+            class="block text-sm font-medium leading-6 text-gray-900 mb-1"
+          >Email</label>
+          <input
+            id="username"
+            v-model="username"
+            type="text"
+            name="username"
+            autocomplete="none"
+            placeholder="Entrer votre mail "
+            class="input-field mb-4"
+          >
+        </div>
+        <div class="flex flex-col">
+          <label
+            for="password"
+            class="block text-sm font-medium leading-6 text-gray-900 mb-1"
+          >Mot de passe</label>
+          <input
+            id="password"
+            v-model="password"
+            type="password"
+            name="password"
+            autocomplete="none"
+            placeholder="Entrer un mot de passe "
+            class="input-field mb-4"
+          >
+        </div>
+        <div
+          v-if="!loginMode"
+          class="flex flex-col"
+        >
+          <label
+            for="fullName"
+            class="block text-sm font-medium leading-6 text-gray-900 mb-1"
+          >Nom</label>
+          <input
+            id="fullName"
+            v-model="fullName"
+            type="text"
+            name="fullName"
+            autocomplete="none"
+            placeholder="Entrer votre nom"
+            class="input-field mb-4"
+          >
+        </div>
+        <div class="flex justify-between items-center">
+          <button
+            type="submit"
+            class="button"
+          >
+            {{ loginMode ? "Se connecter" : "Créer un compte" }}
+          </button>
+          <button
+            type="button"
+            class="button secondary"
+            @click="loginMode = !loginMode"
+          >
+            {{ loginMode ? "Créer un compte" : "Annuler" }}
+          </button>
+        </div>
+      </form>
+    </div>
+    <div v-else>
+      <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md space-y-6">
+        <h1 class="text-2xl font-bold mb-4 text-center">
+          Welcome {{ currentUser?.name }}
+        </h1>
+        <button
+          type="button"
+          class="button secondary"
+          @click="doLogout"
+        >
+          Se déconnecter 
+        </button>
+      </div>
+    </div>
+  </div>
+</template>
+  
+<script setup>
+import { ref } from 'vue'
+  
+const apiUrl = 'http://localhost:3000' // Votre API URL
+const currentUser = ref(null)
+const username = ref('')
+const password = ref('')
+const fullName = ref('')
+const loginMode = ref(true)
+  
+const doLogout = () => {
+  currentUser.value = null
+  localStorage.removeItem('token')
+}
+  
+const doLogin = async () => {
+  try {
+    const response = await fetch(`${apiUrl}/authenticate`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ email: username.value, password: password.value })
+    })
+  
+    if (!response.ok) throw new Error('Login failed')
+  
+    const data = await response.json()
+    currentUser.value = data.record
+    localStorage.setItem('token', data.token)
+  } catch (error) {
+    alert(error.message)
+  }
+}
+  
+const doCreateAccount = async () => {
+  try {
+    const response = await fetch(`${apiUrl}/users`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email: username.value,
+        password: password.value,
+        name: fullName.value
+      })
+    })
+  
+    if (!response.ok) throw new Error('Account creation failed')
+  
+    await doLogin() 
+  } catch (error) {
+    alert(error.message)
+  }
+}
+</script>
+  
+  <style scoped>
+  .input-field {
+    width: 100%;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #d1d5db;
+    transition: border-color 0.3s ease;
+  }
+  .input-field:focus {
+    outline: none;
+    border-color: #4f46e5;
+  }
+  .button {
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+  .button.secondary {
+    background-color: #e5e7eb;
+    color: #4b5563;
+    margin-left: 8px;
+  }
+  .button:hover {
+    background-color: #4f46e5;
+    color: white;
+  }
+  </style>
+  
