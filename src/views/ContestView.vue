@@ -1,8 +1,8 @@
 <template>
   <div>
     <div
-        v-for="(item, index) in displayedItems"
-        :key="index"
+      v-for="(item, index) in displayedItems"
+      :key="index"
     >
       <button @click="chooseValue(item)">
         {{ item }}
@@ -12,27 +12,11 @@
 </template>
 
 <script setup lang="ts">
-import {ref, computed, onMounted} from 'vue'
+import { ref, computed } from 'vue'
+import { data } from '../data.ts'
 import { useRoute } from 'vue-router'
-import SurveyService from "@/services/surveyService";
 
 const route = useRoute()
-let data = ref([])
-
-onMounted(async () => {
-  getSurveyElements();
-})
-
-const getSurveyElements = async () => {
-  if (!route.params.id) {
-    console.error('ID parameter is missing from route')
-    return
-  }
-  const response = await SurveyService.getSurveyElement(+route.params.id);
-  data.value = response;
-  console.log('data.value');
-  console.log(data.value);
-}
 
 function shuffleArray(array) {
   const tempArray = array

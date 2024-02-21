@@ -17,7 +17,10 @@ import { defineComponent } from 'vue'
 export default defineComponent({
   // type inference enabled
   props: {
-    title: String,
-  },
+    title: {
+      type: String,
+      default: ''
+    }
+  }
 })
 </script>
