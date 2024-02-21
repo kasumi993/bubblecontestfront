@@ -3,24 +3,47 @@
 # Specify the image to use for the job
 image: node:18.17.1
 
+variables:
+  # Définition des variables pour éviter la répétition
+  APT_PACKAGES: "libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libnss3 libxss1 libasound2 libxtst6 xauth xvfb"
+
+
+cache:
+  paths:
+    - node_modules/
+
+before_script:
+  - npm ci --cache .npm --prefer-offline
+
 # Define the stages of the pipeline
 stages:
   - test
+  - cypress
+  - eslint
+
+
 
 # Job to run tests
 test:
   stage: test
-  before_script:
-    - apt-get update && apt-get install -y libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libnss3 libxss1 libasound2 libxtst6 xauth xvfb
-    # Install dependencies
-    - npm install
-    # Install Cypress globally
-    - npm install -g cypress
-
   script:
-    - npm run dev&
-    # Run unit tests with Vitest
     - npm run test:unit
-    # Run cypress tests
+
+
+cypress: 
+  stage: cypress
+  before_script:
+    - apt-get update && apt-get install -y $APT_PACKAGES
+    - npm install -g cypress
+  script: 
+    - npm run dev&
     - npx cypress run
+
+
+eslint: 
+  stage: eslint
+  before_script:
+  script: 
+    - npm run lint 
+
 
