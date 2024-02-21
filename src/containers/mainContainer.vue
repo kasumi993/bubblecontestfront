@@ -1,16 +1,16 @@
 <template>
-  <Header />
   <div class="main">
+    <HeaderComponent />
     <router-view />
   </div>
 </template>
 
 <script>
-import Header from '@/components/Headers/Header.vue'
+import HeaderComponent from '../components/HeaderComponent/HeaderComponent.vue'
 
 export default {
   name: 'MainContainer',
-  components: { Header }
+  components: { HeaderComponent }
 }
 </script>
 

@@ -12,12 +12,11 @@
     "test:e2e:dev": "start-server-and-test 'vite dev --port 4173' http://localhost:4173 'cypress open --e2e'",
     "build-only": "vite build",
     "type-check": "vue-tsc --build --force",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
+    "lint": "eslint . --fix --ignore-path .gitignore",
     "format": "prettier --write src/"
   },
   "dependencies": {
     "pinia": "^2.1.7",
-    "pocketbase": "^0.21.1",
     "vue": "^3.4.15",
     "vue-router": "^4.2.5"
   },
@@ -32,7 +31,7 @@
     "@vue/test-utils": "^2.4.4",
     "@vue/tsconfig": "^0.5.1",
     "autoprefixer": "^10.4.17",
-    "cypress": "^13.6.3",
+    "cypress": "^13.6.5",
     "eslint": "^8.56.0",
     "eslint-plugin-cypress": "^2.15.1",
     "eslint-plugin-vue": "^9.21.1",
