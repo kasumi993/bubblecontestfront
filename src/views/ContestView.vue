@@ -1,3 +1,16 @@
+<template>
+  <div>
+    <div
+        v-for="(item, index) in displayedItems"
+        :key="index"
+    >
+      <button @click="chooseValue(item)">
+        {{ item }}
+      </button>
+    </div>
+  </div>
+</template>
+
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { data } from '../data.ts'
@@ -51,15 +64,4 @@ function chooseValue(item) {
 }
 </script>
 
-<template>
-  <div>
-    <div
-      v-for="(item, index) in displayedItems"
-      :key="index"
-    >
-      <button @click="chooseValue(item)">
-        {{ item }}
-      </button>
-    </div>
-  </div>
-</template>
+
