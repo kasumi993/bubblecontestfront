@@ -6,6 +6,7 @@ const surveys = ref([])
 
 const getSurveys = async () => {
   const origin = import.meta.env.VITE_API_URI
+  console.log('origine ', origin)
   const requestOptions = {
     method: 'GET',
     headers: {
