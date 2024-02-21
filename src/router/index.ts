@@ -23,7 +23,7 @@ const router = createRouter({
           }
         },
         {
-          path: '/contest/:name',
+          path: '/contest',
           name: 'contest',
           component: ContestView
           // route level code-splitting
