@@ -31,6 +31,11 @@ const router = createRouter({
           // which is lazy-loaded when the route is visited.
         },
         {
+          path: '/results',
+          name: 'results',
+          component: ContestView
+        },
+        {
           path: '/login',
           name: 'login',
           component: LoginView
