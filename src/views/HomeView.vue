@@ -1,10 +1,24 @@
 <script setup lang="ts">
+import { onBeforeMount, ref } from 'vue'
 import CardComponent from '../components/CardComponent.vue'
-import { data } from '../data.ts'
 
-console.log(data)
-const concours = data.initBDD.map((element) => {
-  return element.title
+const surveys = ref([])
+
+const getSurveys = async () => {
+  const origin = import.meta.env.VITE_API_URI
+  const requestOptions = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }
+  const response = await fetch(`${origin}/surveys`, requestOptions)
+  const _surveys = await response.json()
+  surveys.value = _surveys
+}
+
+onBeforeMount(() => {
+  getSurveys()
 })
 
 </script>
