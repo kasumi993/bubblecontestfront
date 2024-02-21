@@ -79,7 +79,7 @@
     <div v-else>
       <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md space-y-6">
         <h1 class="text-2xl font-bold mb-4 text-center">
-          Welcome {{ currentUser?.name }}
+          Welcome {{ currentUser?.username }}
         </h1>
         <button
           type="button"
