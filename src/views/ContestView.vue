@@ -12,11 +12,27 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
-import { data } from '../data.ts'
+import {ref, computed, onMounted} from 'vue'
 import { useRoute } from 'vue-router'
+import SurveyService from "@/services/surveyService";
 
 const route = useRoute()
+let data = ref([])
+
+onMounted(async () => {
+  getSurveyElements();
+})
+
+const getSurveyElements = async () => {
+  if (!route.params.id) {
+    console.error('ID parameter is missing from route')
+    return
+  }
+  const response = await SurveyService.getSurveyElement(+route.params.id);
+  data.value = response;
+  console.log('data.value');
+  console.log(data.value);
+}
 
 function shuffleArray(array) {
   const tempArray = array
@@ -29,9 +45,9 @@ function shuffleArray(array) {
 
 console.log(data)
 let liste = []
-for (let i = 0; i < data.initBDD.length; i++) {
-  if (data.initBDD[i].title === route.params.name) {
-    liste = shuffleArray(data.initBDD[i].elements)
+for (let i = 0; i < data.value.length; i++) {
+  if (data.value[i].title === route.params.name) {
+    liste = shuffleArray(data.value[i].elements)
   }
 }
 console.log(liste)

@@ -1,19 +1,29 @@
 <script setup lang="ts">
 import { onBeforeMount, ref } from 'vue'
 import CardComponent from '../components/CardComponent.vue'
-import { headersWithAuthorization } from '../utils/index'
+const surveys = ref([])
+
+import SurveyService from '@/services/surveyService'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 const surveys = ref([])
 
 const getSurveys = async () => {
-  const origin = import.meta.env.VITE_API_URI
-  const requestOptions = {
-    method: 'GET',
-    headers: headersWithAuthorization
-  }
-  const response = await fetch(`${origin}/surveys`, requestOptions)
-  const _surveys = await response.json()
-  surveys.value = _surveys
+  const response = await SurveyService.getSurveys()
+  surveys.value = response
+  console.log('surveys')
+  console.log(surveys)
+  console.log('surveys.value')
+  console.log(surveys.value)
 }
+
+const goToContest = (param) => {
+  console.log('param')
+  console.log(param)
+  router.push({ name: 'contest', params: { id: param } })
+}
+
 
 onBeforeMount(() => {
   getSurveys()
@@ -66,7 +76,10 @@ onBeforeMount(() => {
         v-for="(survey, index) in surveys"
         :key="index"
       >
-        <CardComponent :name="survey.title" />
+        <CardComponent
+          :title="survey.title"
+          @click="goToContest(survey.survey_id)"
+        />
       </div>
     </div>
   </div>
