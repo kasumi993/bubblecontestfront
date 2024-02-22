@@ -6,21 +6,6 @@
 </template>
 
 
-<script lang="ts">
-
-
-
-
-export default {
-  methods: {
-    update() {
-
-    }
-  }
-}
-
-</script>
-
 <style lang="scss">
 @import "styles/styles.scss";
 </style>

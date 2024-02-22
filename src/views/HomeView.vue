@@ -1,17 +1,14 @@
 <script setup lang="ts">
 import { onBeforeMount, ref } from 'vue'
 import CardComponent from '../components/CardComponent.vue'
-
+import { headersWithAuthorization } from '../utils/index'
 const surveys = ref([])
 
 const getSurveys = async () => {
   const origin = import.meta.env.VITE_API_URI
-  console.log('origine ', origin)
   const requestOptions = {
     method: 'GET',
-    headers: {
-      'Content-Type': 'application/json'
-    }
+    headers: headersWithAuthorization
   }
   const response = await fetch(`${origin}/surveys`, requestOptions)
   const _surveys = await response.json()
@@ -21,7 +18,6 @@ const getSurveys = async () => {
 onBeforeMount(() => {
   getSurveys()
 })
-
 </script>
 
 <template>
