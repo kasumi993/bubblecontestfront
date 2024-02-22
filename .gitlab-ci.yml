@@ -23,15 +23,15 @@ stages:
 
 deploy:
   stage: deploy
-  image: docker:19.03.12
-  services:
-    - docker:19.03.12-dind
+  image: docker:latest
   before_script:
     - echo "Logging in to GitLab Docker registry..."
     - echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
   script:
     - docker pull registry.gitlab.com/bubbleproject/bubbleback:latest
     - docker-compose up -d
+  only:
+    - feat/TestCI
 
 
 # Job to run tests
