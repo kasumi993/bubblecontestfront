@@ -7,7 +7,6 @@ variables:
   # Définition des variables pour éviter la répétition
   APT_PACKAGES: "libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libnss3 libxss1 libasound2 libxtst6 xauth xvfb"
 
-
 cache:
   paths:
     - node_modules/
@@ -17,10 +16,21 @@ before_script:
 
 # Define the stages of the pipeline
 stages:
+  - deploy
   - test
   - cypress
   - eslint
 
+deploy:
+  stage: deploy
+  image: docker:19.03.12
+  services:
+    - docker:19.03.12-dind
+  before_script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+  script:
+    - docker pull registry.gitlab.com/bubbleproject/bubbleback:latest
+    - docker-compose up -d
 
 
 # Job to run tests
@@ -28,7 +38,6 @@ test:
   stage: test
   script:
     - npm run test:unit
-
 
 cypress: 
   stage: cypress
@@ -39,11 +48,7 @@ cypress:
     - npm run dev&
     - npx cypress run
 
-
 eslint: 
   stage: eslint
-  before_script:
   script: 
     - npm run lint 
-
-
