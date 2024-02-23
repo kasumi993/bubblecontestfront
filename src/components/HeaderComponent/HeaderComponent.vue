@@ -16,10 +16,14 @@
           <span class="ml-4 self-center text-xl font-semibold whitespace-nowrap text-white">Bubble</span>
         </a>
         <div class="flex items-center lg:order-2">
-          <a
-            href="/login"
-            class="text-white focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 hover:bg-gray-700 focus:ring-gray-800"
-          >Se connecter</a>
+          <div v-if="!authStore.authenticated"
+            @click="login"
+            class="cursor-pointer text-white focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 hover:bg-gray-700 focus:ring-gray-800"
+          >Se connecter</div>
+          <div v-else
+              @click="logout"
+              class="cursor-pointer text-white focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 hover:bg-gray-700 focus:ring-gray-800"
+          >Se déconnecter</div>
           <button
             data-collapse-toggle="mobile-menu-2"
             type="button"
@@ -122,8 +126,25 @@
 </template>
 
 <script>
+import {useAuthStore} from "@/stores/authStore.ts";
+
 export default {
-  name: 'HeaderComponent'
+  name: 'HeaderComponent',
+  setup() {
+    const authStore = useAuthStore();
+    return { authStore };
+  },
+  methods: {
+    logout() {
+      console.log('loggin out');
+      this.authStore.logout();
+      this.$router.push('/login');
+    },
+    login() {
+      console.log('going to login page');
+      this.$router.push('/login');
+    }
+  }
 }
 </script>
 
