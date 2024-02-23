@@ -1,5 +1,7 @@
 # Bubble Quiz
 
+Bubble est une plateforme permettant de participer à des concours. Vous pouvez noter des films, personnages, animés etc, puis à la fin retrouver le résultat du concours.
+
 ## Pré-requis
 
 Avant de commencer, assurez-vous d'avoir les pré-requis suivants installés sur votre machine :
