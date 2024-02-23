@@ -50,8 +50,7 @@ cypress:
     - apt-get update && apt-get install -y $APT_PACKAGES
     - npm install -g cypress
   script: 
-    - npm run dev&
-    - npx cypress run
+    - npm run test:e2e
 
 eslint: 
   stage: eslint
