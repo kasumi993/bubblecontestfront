@@ -1,11 +1,18 @@
 <template>
   <div class="card-list w-full max-w-md p-4 rounded-lg shadow sm:p-8">
     <div class="flow-root">
-      <ul role="list" class="divide-y divide-gray-700">
+      <ul
+        role="list"
+        class="divide-y divide-gray-700"
+      >
         <li class="py-3 sm:py-4">
           <div class="flex items-center">
             <div class="flex-shrink-0">
-              <img class="w-8 h-8 rounded-full" src="@/assets/banner.png" alt="Neil image">
+              <img
+                class="w-8 h-8 rounded-full"
+                src="@/assets/banner.png"
+                alt="Neil image"
+              >
             </div>
             <div class="flex-1 min-w-0 ms-4">
               <p class="text-sm font-medium truncate text-white">
@@ -28,7 +35,11 @@
         <li class="py-3 sm:py-4">
           <div class="flex items-center ">
             <div class="flex-shrink-0">
-              <img class="w-8 h-8 rounded-full" src="@/assets/banner.png" alt="Bonnie image">
+              <img
+                class="w-8 h-8 rounded-full"
+                src="@/assets/banner.png"
+                alt="Bonnie image"
+              >
             </div>
             <div class="flex-1 min-w-0 ms-4">
               <p class="text-sm font-medium truncate text-white">
@@ -51,11 +62,15 @@
         <li class="py-3 sm:py-4">
           <div class="flex items-center">
             <div class="flex-shrink-0">
-              <img class="w-8 h-8 rounded-full" src="@/assets/banner.png" alt="Michael image">
+              <img
+                class="w-8 h-8 rounded-full"
+                src="@/assets/banner.png"
+                alt="Michael image"
+              >
             </div>
             <div class="flex-1 min-w-0 ms-4">
               <p class="text-sm font-medium truncate text-white">
-               Cheat code
+                Cheat code
               </p>
               <p class="text-sm truncate text-gray-400">
                 one punch man, solo leveling, isekai
@@ -74,7 +89,11 @@
         <li class="py-3 sm:py-4">
           <div class="flex items-center ">
             <div class="flex-shrink-0">
-              <img class="w-8 h-8 rounded-full" src="@/assets/banner.png" alt="Lana image">
+              <img
+                class="w-8 h-8 rounded-full"
+                src="@/assets/banner.png"
+                alt="Lana image"
+              >
             </div>
             <div class="flex-1 min-w-0 ms-4">
               <p class="text-sm font-medium truncate text-white">
@@ -97,7 +116,11 @@
         <li class="pt-3 pb-0 sm:pt-4">
           <div class="flex items-center ">
             <div class="flex-shrink-0">
-              <img class="w-8 h-8 rounded-full" src="@/assets/banner.png" alt="Thomas image">
+              <img
+                class="w-8 h-8 rounded-full"
+                src="@/assets/banner.png"
+                alt="Thomas image"
+              >
             </div>
             <div class="flex-1 min-w-0 ms-4">
               <p class="text-sm font-medium truncate text-white">
@@ -120,12 +143,11 @@
       </ul>
     </div>
   </div>
-
 </template>
 
 <script>
 export default {
-  name: "cardListComponent"
+  name: 'CardListComponent'
 }
 </script>
 

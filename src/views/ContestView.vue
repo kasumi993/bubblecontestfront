@@ -3,16 +3,32 @@
     class="contest px-32 pt-4"
   >
     <div class="title text-center pt-4 pb-14">
-      <h1 class="text-2xl text-gray-300 font-semibold">{{ surveyList.description}}</h1>
+      <h1 class="text-2xl text-gray-300 font-semibold">
+        {{ surveyList.description }}
+      </h1>
       <p class="text-white text-lg">
-        Tour : {{ currentIndex / 2 }} sur {{ Math.round(selection.length / 2 )}}
+        Tour : {{ currentIndex / 2 }} sur {{ Math.round(selection.length / 2 ) }}
       </p>
     </div>
-    <div class="mx-32 md:mx-16 flex items-center gap-8 justify-between" v-if="displayedItems?.length">
-      <image-card-component v-for="(item, index) in displayedItems" ref="imageCards" :key="index" :item="item" :index="index" @click="chooseValue(item, index)"></image-card-component>
+    <div
+      v-if="displayedItems?.length"
+      class="mx-32 md:mx-16 flex items-center gap-8 justify-between"
+    >
+      <image-card-component
+        v-for="(item, index) in displayedItems"
+        ref="imageCards"
+        :key="index"
+        :item="item"
+        :index="index"
+        @click="chooseValue(item, index)"
+      />
       <div class="order-2 fixed left-1/2">
-        <div class="loading-circle"></div>
-        <img src="@/assets/vs.png" width="35" class="z-10 relative">
+        <div class="loading-circle" />
+        <img
+          src="@/assets/vs.png"
+          width="35"
+          class="z-10 relative"
+        >
       </div>
     </div>
   </div>
@@ -22,7 +38,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import SurveyService from '@/services/surveyService'
-import ImageCardComponent from "@/components/imageCardComponent.vue";
+import ImageCardComponent from '@/components/imageCardComponent.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -45,7 +61,7 @@ const getSurveyElements = async () => {
   while (response.options.length > 32) {                                    // Faire qu'il fasse max 32 éléments
     response.options.pop()
   }
-  surveyList.value = response;
+  surveyList.value = response
   const data = shuffleArray(response.options)
 
   const savedSelection = JSON.parse(localStorage.getItem('selection'))      // Récupérer tous les éléments du local storage si ils existent
@@ -100,12 +116,12 @@ async function returnValues() {
   router.push({ name: 'results' })
 }
 
-const imageCards = ref([]);
+const imageCards = ref([])
 function chooseValue(item, index) {
   // Quand un élément du concours est choisi
-  console.log(imageCards.value);
-  console.log(imageCards.value[index].$el);
-  imageCards.value[index].$el.classList.add('selected');
+  console.log(imageCards.value)
+  console.log(imageCards.value[index].$el)
+  imageCards.value[index].$el.classList.add('selected')
   setTimeout(() => {
     console.log('chooseValue', item)
     choosenItems.value.push(item)
