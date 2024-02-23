@@ -1,3 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@import "transitions";
+@import "tailwind-override";
+
+body {
+  height: 100vh;
+  background-color: #18202d;
+  overflow-y: hidden;
+}
+
+#app {
+  overflow-y: scroll;
+  height: 100%;
+}

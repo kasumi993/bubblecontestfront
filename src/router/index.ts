@@ -23,20 +23,28 @@ const router = createRouter({
           },
         },
         {
-          path: '/contest/:name',
+          path: '/contest/:id',
           name: 'contest',
-          component: ContestView
-          // route level code-splitting
-          // this generates a separate chunk (About.[hash].js) for this route
-          // which is lazy-loaded when the route is visited.
+          component: ContestView,
+          meta: {
+            auth: true
+          }
+        },
+        {
+          path: '/results',
+          name: 'results',
+          component: ContestView,
+          meta: {
+            auth: true
+          }
         },
         {
           path: '/login',
           name: 'login',
-          component: LoginView
-          // route level code-splitting
-          // this generates a separate chunk (About.[hash].js) for this route
-          // which is lazy-loaded when the route is visited.
+          component: LoginView,
+          meta: {
+            auth: false
+          }
         }
       ],
     },
