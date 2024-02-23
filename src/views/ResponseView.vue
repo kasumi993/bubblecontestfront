@@ -14,7 +14,6 @@ const getSurveyElements = async () => {
   }
   const response = await SurveyService.getSurveyElement(+route.params.id)   // Récupérer les éléments du concours
   listElements.value = response.options
-  console.log('response', listElements) 
 }
 
 onMounted(async () => {
@@ -31,6 +30,9 @@ onMounted(async () => {
       class="template"
     >
       {{ item.name }}
+      <div class="w-full rounded-full bg-gray-700">
+        <div class="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full" :style="{width: item.choices + 'px'}"> {{item.choices + 'px'}}</div>
+      </div>
       <div class="progress-bar-container">
         <div
           class="progress-bar"
@@ -46,33 +48,11 @@ onMounted(async () => {
 
 <style>
 .template{
-  margin: 10px 20px;
+  margin: 20px 50px;
   padding: 10px;
   border: 1px solid black;
   border-radius: 5px;
   background-color: #f2f2f2;
 }
 
-.progress-bar-container {
-  margin: 5px 0;
-  width: 100%;
-  background-color: #eee;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  overflow: hidden;
-}
-
-.progress-bar {
-  height: 20px; /* Hauteur de la barre de progression */
-  background-color: #4caf50; /* Couleur de la barre de progression */
-  text-align: center;
-  line-height: 20px; /* Pour centrer le texte verticalement si nécessaire */
-  color: white;
-  transition: width 0.5s ease-in-out; /* Transition douce pour le changement de largeur */
-}
-
-.progress-bar-text {
-  transform: translate(5px, -23px);
-  position: absolute;
-}
 </style>

@@ -10,25 +10,11 @@
         Tour : {{ currentIndex / 2 }} sur {{ Math.round(selection.length / 2 ) }}
       </p>
     </div>
-    <div
-      v-if="displayedItems?.length"
-      class="mx-32 md:mx-16 flex items-center gap-8 justify-between"
-    >
-      <image-card-component
-        v-for="(item, index) in displayedItems"
-        ref="imageCards"
-        :key="index"
-        :item="item"
-        :index="index"
-        @click="chooseValue(item, index)"
-      />
-      <div class="order-2 fixed left-1/2">
-        <div class="loading-circle" />
-        <img
-          src="@/assets/vs.png"
-          width="35"
-          class="z-10 relative"
-        >
+    <div class="mx-32 md:mx-16 flex items-center gap-8 justify-between" v-if="displayedItems?.length">
+      <image-card-component v-for="(item, index) in displayedItems" :class="index === 1 ? 'on-right' : 'on-left'" ref="imageCards" :key="index" :item="item" :index="index" @click="chooseValue(item, index)"></image-card-component>
+      <div class="vs-icon order-2 fixed left-1/2" ref="vsIcon">
+        <div class="loading-circle"></div>
+        <img src="@/assets/vs.png" width="35" class="z-10 relative">
       </div>
     </div>
   </div>
@@ -96,11 +82,10 @@ function showNextItems() {                                                      
     currentIndex.value += 2
     localStorage.setItem('currentIndex', JSON.stringify(currentIndex.value))
   } else {
-    if (selection.value.length === 2) {
+    if (selection.value.length <= 2) {
       returnValues()                                                              // En finale
     } else {
       selection.value = shuffleArray(choosenItems.value)
-      console.log('selection', selection.value)
       choosenItems.value = []
       currentIndex.value = 0
       localStorage.setItem('selection', JSON.stringify(selection.value))
@@ -110,21 +95,30 @@ function showNextItems() {                                                      
 }
 
 async function returnValues() {
-  console.log('\n\n\n')
-  console.log('returnValues', choosenItems.value)
-  console.log('returnSelectionItems', returnSelectionItems)
   SurveyService.putChoosen(returnSelectionItems.value)
   router.push({ name: 'results' })
 }
 
-const imageCards = ref([])
+const imageCards = ref([]);
+const vsIcon = ref({});
 function chooseValue(item, index) {
   // Quand un élément du concours est choisi
-  console.log(imageCards.value)
-  console.log(imageCards.value[index].$el)
-  imageCards.value[index].$el.classList.add('selected')
+  // TODO change logic for image positions and use store instead of localstorage
+  const unselectedCard = ref({});
+  if (imageCards.value[index + 1]) {
+    unselectedCard.value = imageCards.value[index + 1];
+  }
+  if (imageCards.value[index - 1]) {
+    unselectedCard.value = imageCards.value[index - 1];
+  }
+  unselectedCard.value?.$el?.classList.add('hide');
+  vsIcon.value.classList.add('hidden');
+  const classValue = index === 1 ? 'slide-to-middle-from-right' : 'slide-to-middle-from-left';
+  imageCards.value[index]?.$el?.classList.add(classValue);
   setTimeout(() => {
-    console.log('chooseValue', item)
+    unselectedCard.value?.$el?.classList.remove('hide');
+    vsIcon.value?.classList.remove('hidden');
+    imageCards.value[index]?.$el?.classList.remove(classValue);
     choosenItems.value.push(item)
     localStorage.setItem('choosenItems', JSON.stringify(choosenItems.value))
     const existingItem = returnSelectionItems.value.find(element => element.id === item.option_id)  // Vérifier si l'élément existe déjà
@@ -135,13 +129,19 @@ function chooseValue(item, index) {
     }
     localStorage.setItem('returnSelectionItems', JSON.stringify(returnSelectionItems.value))
     showNextItems()
-  }, 3000)
+  }, 1000)
 }
 </script>
 
 <style scoped>
 .contest {
   height: calc(100vh - 120px);
+}
+
+.vs-icon {
+ &.hidden {
+   display: none;
+ }
 }
 /* CSS for the loading circle animation */
 .loading-circle {

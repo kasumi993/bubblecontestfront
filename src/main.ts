@@ -15,19 +15,17 @@ const authStore = useAuthStore()
 
 authStore.check()
 router.beforeEach(async (to, from, next) => {
-  // Handle authentication and guest routes
-  if (authStore) {
-    console.log('authStore.authenticated')
-    console.log(authStore.authenticated)
-    if (to.matched.some(m => m.meta.auth) && !authStore.authenticated) {
-      /*
+    // Handle authentication and guest routes
+    if (authStore) {
+        if (to.matched.some(m => m.meta.auth) && !authStore.authenticated) {
+            /*
              * If the user is not authenticated and visits
              * a page that requires authentication, redirect to the login page
              */
-      return next({
-        name: 'login',
-        query: { redirect: to.path }
-      })
+        return next({
+          name: 'login',
+          query: { redirect: to.path }
+        })
     }
   }
 

@@ -106,11 +106,9 @@ const doLogin = async () => {
     if (!response.ok) alert('La connexion a échoué. Veuillez vérifier vos identifiants.')
 
     const data = await response.json()
-    console.log('data')
-    console.log(data)
-    authStore.login(data.token, data.record)
-    const redirectUrl = route.query.redirect ? route.query.redirect : '/home'
-    router.push(redirectUrl)
+    authStore.login(data.token, data.record);
+    const redirectUrl = route.query.redirect ? route.query.redirect : '/home';
+    router.push(redirectUrl);
   } catch (error) {
     console.log(error.message)
   }
