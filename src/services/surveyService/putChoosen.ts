@@ -9,8 +9,9 @@ export async function putChoosen(options: any) {
   }
     
   try {
-    const response = await fetch(`${origin}/options`, requestOptions)
+    const response = await fetch(`${origin}/change`, requestOptions)
     if (!response.ok) {
+      console.error('response:', response, requestOptions, origin)
       throw new Error(`Failed to fetch surveys: ${response.statusText}`)
     }
     console.log('response:', response, requestOptions, origin)
