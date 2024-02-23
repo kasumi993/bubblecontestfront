@@ -9,8 +9,8 @@
       </p>
     </div>
     <div class="mx-32 md:mx-16 flex items-center gap-8 justify-between" v-if="displayedItems?.length">
-      <image-card-component v-for="(item, index) in displayedItems" ref="imageCards" :key="index" :item="item" :index="index" @click="chooseValue(item, index)"></image-card-component>
-      <div class="order-2 fixed left-1/2">
+      <image-card-component v-for="(item, index) in displayedItems" :class="index === 1 ? 'on-right' : 'on-left'" ref="imageCards" :key="index" :item="item" :index="index" @click="chooseValue(item, index)"></image-card-component>
+      <div class="vs-icon order-2 fixed left-1/2" ref="vsIcon">
         <div class="loading-circle"></div>
         <img src="@/assets/vs.png" width="35" class="z-10 relative">
       </div>
@@ -102,12 +102,32 @@ async function returnValues() {
 }
 
 const imageCards = ref([]);
+const vsIcon = ref({});
 function chooseValue(item, index) {
   // Quand un élément du concours est choisi
   console.log(imageCards.value);
   console.log(imageCards.value[index].$el);
-  imageCards.value[index].$el.classList.add('selected');
+  // TODO change logic for image positions and use store instead of localstorage
+  const unselectedCard = ref({});
+  console.log('imageCards.value[index + 1]');
+  console.log(imageCards.value[index + 1]);
+  console.log('imageCards.value[index - 1]');
+  console.log(imageCards.value[index - 1]);
+  if (imageCards.value[index + 1]) {
+    unselectedCard.value = imageCards.value[index + 1];
+  }
+  if (imageCards.value[index - 1]) {
+    unselectedCard.value = imageCards.value[index - 1];
+  }
+  console.log(unselectedCard.value);
+  unselectedCard.value.$el.classList.add('hide');
+  vsIcon.value.classList.add('hidden');
+  const classValue = index === 1 ? 'slide-to-middle-from-right' : 'slide-to-middle-from-left';
+  imageCards.value[index].$el.classList.add(classValue);
   setTimeout(() => {
+    unselectedCard.value.$el.classList.remove('hide');
+    vsIcon.value.classList.remove('hidden');
+    imageCards.value[index].$el.classList.remove(classValue);
     console.log('chooseValue', item)
     choosenItems.value.push(item)
     localStorage.setItem('choosenItems', JSON.stringify(choosenItems.value))
@@ -119,13 +139,19 @@ function chooseValue(item, index) {
     }
     localStorage.setItem('returnSelectionItems', JSON.stringify(returnSelectionItems.value))
     showNextItems()
-  }, 3000)
+  }, 1000)
 }
 </script>
 
 <style scoped>
 .contest {
   height: calc(100vh - 120px);
+}
+
+.vs-icon {
+ &.hidden {
+   display: none;
+ }
 }
 /* CSS for the loading circle animation */
 .loading-circle {

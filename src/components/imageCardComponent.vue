@@ -34,24 +34,27 @@ export default {
 <style scoped>
 .image-card {
   cursor: pointer;
+  transition: all 0.5s ease;
+  position: relative;
 
-  &.selected {
-    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
-    animation: slideAndFade 1s forwards; /* Apply slide and fade animation */
+  &.on-left {
+    left: 0;
   }
 
-  @keyframes slideAndFade {
-    0% {
-      position: absolute;
-      opacity: 1;
-    }
-    50% {
-      opacity: 1;
-    }
-    100% {
-      transform: translate(-50%, -50%) scale(1.5);
-      opacity: 0;
-    }
+  &.on-right {
+    right: 0;
+  }
+
+  &.hide {
+    opacity: 0 !important;
+  }
+
+  &.slide-to-middle-from-left {
+    left: 35%;
+  }
+
+  &.slide-to-middle-from-right {
+    right: 35%;
   }
 }
 .card {
