@@ -1,33 +1,18 @@
 <template>
   <div
-    class="contest"
+    class="contest px-32 pt-4"
   >
-    <div
-      class="title"
-    >
-      <h1>
-        Tour : {{ currentIndex / 2 }} sur {{ selection.length / 2 }}
-      </h1>
+    <div class="title text-center pt-4 pb-14">
+      <h1 class="text-2xl text-gray-300 font-semibold">{{ surveyList.description}}</h1>
+      <p class="text-white text-lg">
+        Tour : {{ currentIndex / 2 }} sur {{ Math.round(selection.length / 2 )}}
+      </p>
     </div>
-    <div
-      class="divide"
-    >
-      <div
-        v-for="(item, index) in displayedItems"
-        :key="index"
-        class="template"
-      >
-        <button
-          :class="{'red-border': index === 0, 'blue-border': index === 1}"
-          @click="chooseValue(item)"
-        >
-          {{ item.name }}
-        </button>
-      </div>
-      <div
-        class="versus"
-      >
-        Versus
+    <div class="mx-32 md:mx-16 flex items-center gap-8 justify-between" v-if="displayedItems?.length">
+      <image-card-component v-for="(item, index) in displayedItems" ref="imageCards" :key="index" :item="item" :index="index" @click="chooseValue(item, index)"></image-card-component>
+      <div class="order-2 fixed left-1/2">
+        <div class="loading-circle"></div>
+        <img src="@/assets/vs.png" width="35" class="z-10 relative">
       </div>
     </div>
   </div>
@@ -37,10 +22,12 @@
 import { ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import SurveyService from '@/services/surveyService'
+import ImageCardComponent from "@/components/imageCardComponent.vue";
 
 const route = useRoute()
 const router = useRouter()
 
+const surveyList = ref([])               // Liste des éléments
 const selection = ref([])               // Liste des éléments à montrer dans le tour
 const currentIndex = ref(0)             // Index de l'élément actuel à afficher
 const choosenItems = ref([])            // Liste des éléments choisis
@@ -58,6 +45,7 @@ const getSurveyElements = async () => {
   while (response.options.length > 32) {                                    // Faire qu'il fasse max 32 éléments
     response.options.pop()
   }
+  surveyList.value = response;
   const data = shuffleArray(response.options)
 
   const savedSelection = JSON.parse(localStorage.getItem('selection'))      // Récupérer tous les éléments du local storage si ils existent
@@ -86,7 +74,7 @@ function shuffleArray(array) {
   return tempArray
 }
 
-function showNextItems() {                                                        // Afficher les prochains éléments          
+function showNextItems() {                                                        // Afficher les prochains éléments
   if (currentIndex.value + 2 < selection.value.length) {
     currentIndex.value += 2
     localStorage.setItem('currentIndex', JSON.stringify(currentIndex.value))
@@ -110,76 +98,56 @@ async function returnValues() {
   console.log('returnSelectionItems', returnSelectionItems)
   SurveyService.putChoosen(returnSelectionItems.value)
   router.push({ name: 'results' })
-  
 }
 
-function chooseValue(item) {                                                   // Quand un élément du concours est choisi     
-  console.log('chooseValue', item)
-  choosenItems.value.push(item)
-  localStorage.setItem('choosenItems', JSON.stringify(choosenItems.value))
-  const existingItem = returnSelectionItems.value.find(element => element.id === item.option_id)  // Vérifier si l'élément existe déjà
-  if (existingItem) {
-    existingItem.choose++                                                                         // Pour augmenter le nombre de fois qu'il a été choisi
-  } else {
-    returnSelectionItems.value.push({ id: item.option_id, choose: 1 })                            // Sinon on ajoute l'élément à la liste       
-  }
-  localStorage.setItem('returnSelectionItems', JSON.stringify(returnSelectionItems.value))
-  showNextItems()
+const imageCards = ref([]);
+function chooseValue(item, index) {
+  // Quand un élément du concours est choisi
+  console.log(imageCards.value);
+  console.log(imageCards.value[index].$el);
+  imageCards.value[index].$el.classList.add('selected');
+  setTimeout(() => {
+    console.log('chooseValue', item)
+    choosenItems.value.push(item)
+    localStorage.setItem('choosenItems', JSON.stringify(choosenItems.value))
+    const existingItem = returnSelectionItems.value.find(element => element.id === item.option_id)  // Vérifier si l'élément existe déjà
+    if (existingItem) {
+      existingItem.choose++                                                                         // Pour augmenter le nombre de fois qu'il a été choisi
+    } else {
+      returnSelectionItems.value.push({ id: item.option_id, choose: 1 })                            // Sinon on ajoute l'élément à la liste
+    }
+    localStorage.setItem('returnSelectionItems', JSON.stringify(returnSelectionItems.value))
+    showNextItems()
+  }, 3000)
 }
 </script>
 
 <style scoped>
-.versus {
-  position: fixed;
-  top: 200px;
-  right: 50%;
-  transform: translate(50%, -50%);
-  border-radius: 10px;
-  width: auto;
-  height: auto;
-  font-size: 1.5em;
-  font-weight: bold;
+.contest {
+  height: calc(100vh - 120px);
+}
+/* CSS for the loading circle animation */
+.loading-circle {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: -14px;
+  left: -17px;
+  width: 65px;
+  height: 65px;
+  border: 3px solid transparent;
+  border-bottom-color: #31AADD; /* Change color as needed */
+  border-top-color: #31AADD; /* Change color as needed */
+  border-radius: 50%;
+  animation: spin 5s linear infinite;
 }
 
-.divide {
-  display: flex;
-  flex-direction: row;
-
-  margin: 0 10px;
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
-.template {
-  display: flex;
-  align-items: center;
-  width: 50%;
-  height: 50vh;
-}
-
-button {
-  padding: 10px;
-  margin: 10px;
-  border-radius: 10px;
-  width: 100%;
-  height: 100%;
-  font-size: 2em;
-  font-weight: bold;
-}
-
-.red-border {
-  border: 2px solid red;
-  background-color: #ffcccc;
-}
-
-.red-border:hover {
-  background-color: #ff9999;
-}
-
-.blue-border {
-  border: 2px solid blue;
-  background-color: #cce6ff;
-}
-
-.blue-border:hover {
-  background-color: #99ccff;
-}
 </style>

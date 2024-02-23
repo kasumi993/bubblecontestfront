@@ -1,6 +1,6 @@
 <template>
   <header>
-    <nav class="bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
+    <nav class="bg-gray-800 border-gray-200 px-4 lg:px-6 py-2.5">
       <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
         <a
           href="/home"
@@ -13,17 +13,21 @@
             width="25"
             height="25"
           >
-          <span class="ml-4 self-center text-xl font-semibold whitespace-nowrap dark:text-white">Bubble</span>
+          <span class="ml-4 self-center text-xl font-semibold whitespace-nowrap text-white">Bubble</span>
         </a>
         <div class="flex items-center lg:order-2">
-          <a
-            href="/login"
-            class="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800"
-          >Se connecter</a>
+          <div v-if="!authStore.authenticated"
+            @click="login"
+            class="cursor-pointer text-white focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 hover:bg-gray-700 focus:ring-gray-800"
+          >Se connecter</div>
+          <div v-else
+              @click="logout"
+              class="cursor-pointer text-white focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 hover:bg-gray-700 focus:ring-gray-800"
+          >Se déconnecter</div>
           <button
             data-collapse-toggle="mobile-menu-2"
             type="button"
-            class="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+            class="inline-flex items-center p-2 ml-1 text-sm rounded-lg lg:hidden focus:outline-none focus:ring-2 text-gray-400 hover:bg-gray-700 focus:ring-gray-600"
             aria-controls="mobile-menu-2"
             aria-expanded="false"
           >
@@ -50,6 +54,40 @@
             /></svg>
           </button>
         </div>
+        <transition name="fade">
+          <form class="w-max">
+            <label
+                for="default-search"
+                class="mb-2 text-sm font-medium sr-only text-white"
+            >Chercher</label>
+            <div class="relative w-72">
+              <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                <svg
+                    class="w-4 h-4 text-gray-400"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 20 20"
+                >
+                  <path
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+                  />
+                </svg>
+              </div>
+              <input
+                  id="default-search"
+                  type="search"
+                  class="block w-full p-1 ps-10 text-sm border outline-none rounded-lg bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+                  placeholder="Rechercher des concours..."
+                  required
+              >
+            </div>
+          </form>
+        </transition>
         <div
           id="mobile-menu-2"
           class="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1"
@@ -58,26 +96,26 @@
             <li>
               <a
                 href="/home"
-                class="block py-2 pr-4 pl-3 text-white rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-white"
+                class="block py-2 pr-4 pl-3 rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 text-white"
                 aria-current="page"
               >Accueil</a>
             </li>
             <li>
               <a
                 href="#"
-                class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
+                class="block py-2 pr-4 pl-3 border-b lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 text-gray-400 lg:hover:text-white hover:bg-gray-700 border-gray-700"
               >Résultats</a>
             </li>
             <li>
               <a
                 href="#"
-                class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
+                class="block py-2 pr-4 pl-3 border-b lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 text-gray-400 lg:hover:text-white hover:bg-gray-700 border-gray-700"
               >Concours</a>
             </li>
             <li>
               <a
                 href="#"
-                class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
+                class="block py-2 pr-4 pl-3 border-b lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 text-gray-400 lg:hover:text-white hover:bg-gray-700 border-gray-700"
               >Contact</a>
             </li>
           </ul>
@@ -88,8 +126,25 @@
 </template>
 
 <script>
+import {useAuthStore} from "@/stores/authStore.ts";
+
 export default {
-  name: 'HeaderComponent'
+  name: 'HeaderComponent',
+  setup() {
+    const authStore = useAuthStore();
+    return { authStore };
+  },
+  methods: {
+    logout() {
+      console.log('loggin out');
+      this.authStore.logout();
+      this.$router.push('/login');
+    },
+    login() {
+      console.log('going to login page');
+      this.$router.push('/login');
+    }
+  }
 }
 </script>
 

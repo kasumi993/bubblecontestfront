@@ -1,9 +1,6 @@
 <template>
-  <div class="min-h-screen bg-gray-100 flex items-center justify-center">
-    <div
-      v-if="!currentUser"
-      class="bg-white p-8 rounded-lg shadow-md w-full max-w-md space-y-6"
-    >
+  <div class="bg-gray-800 flex items-center justify-center">
+    <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md space-y-6">
       <h1 class="text-2xl font-bold mb-4 text-center">
         {{ loginMode ? "Se connecter" : "Créer un compte" }}
       </h1>
@@ -31,6 +28,7 @@
             for="password"
             class="block text-sm font-medium leading-6 text-gray-900 mb-1"
           >Mot de passe</label>
+          <span class="block text-xs font-medium leading-6 text-gray-300 mb-1">Assurez vous de mettre un mot de passe de 8 characteres</span>
           <input
             id="password"
             v-model="password"
@@ -61,53 +59,45 @@
         </div>
         <div class="flex justify-between items-center">
           <button
+              type="button"
+              class="button secondary"
+              @click="loginMode = !loginMode"
+          >
+            {{ loginMode ? "Créer un compte" : "Annuler" }}
+          </button>
+          <button
             type="submit"
             class="button"
           >
             {{ loginMode ? "Se connecter" : "Créer un compte" }}
           </button>
-          <button
-            type="button"
-            class="button secondary"
-            @click="loginMode = !loginMode"
-          >
-            {{ loginMode ? "Créer un compte" : "Annuler" }}
-          </button>
         </div>
       </form>
     </div>
-    <div v-else>
-      <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md space-y-6">
-        <h1 class="text-2xl font-bold mb-4 text-center">
-          Welcome {{ currentUser?.username }}
-        </h1>
-        <button
-          type="button"
-          class="button secondary"
-          @click="doLogout"
-        >
-          Se déconnecter 
-        </button>
-      </div>
-    </div>
   </div>
 </template>
-  
+
 <script setup>
 import { ref } from 'vue'
-  
+import {useAuthStore} from "@/stores/authStore.ts";
+import {useRoute, useRouter} from "vue-router";
+
+const router = useRouter();
+const route = useRoute();
+
+const authStore = useAuthStore();
+
 const apiUrl = 'http://localhost:3000' // Votre API URL
 const currentUser = ref(null)
 const username = ref('')
 const password = ref('')
 const fullName = ref('')
 const loginMode = ref(true)
-  
+
 const doLogout = () => {
-  currentUser.value = null
-  localStorage.removeItem('token')
+  authStore.logout();
 }
-  
+
 const doLogin = async () => {
   try {
     const response = await fetch(`${apiUrl}/authenticate`, {
@@ -117,17 +107,20 @@ const doLogin = async () => {
       },
       body: JSON.stringify({ email: username.value, password: password.value })
     })
-  
-    if (!response.ok) throw new Error('Login failed')
-  
+
+    if (!response.ok) alert("La connexion a échoué. Veuillez vérifier vos identifiants.")
+
     const data = await response.json()
-    currentUser.value = data.record
-    localStorage.setItem('token', data.token)
+    console.log('data');
+    console.log(data);
+    authStore.login(data.token, data.record);
+    const redirectUrl = route.query.redirect ? route.query.redirect : '/home';
+    router.push(redirectUrl);
   } catch (error) {
-    alert(error.message)
+    console.log(error.message)
   }
 }
-  
+
 const doCreateAccount = async () => {
   try {
     const response = await fetch(`${apiUrl}/users`, {
@@ -141,16 +134,16 @@ const doCreateAccount = async () => {
         name: fullName.value
       })
     })
-  
+
     if (!response.ok) throw new Error('Account creation failed')
-  
-    await doLogin() 
+
+    await doLogin()
   } catch (error) {
-    alert(error.message)
+    console.log(error.message)
   }
 }
 </script>
-  
+
   <style scoped>
   .input-field {
     width: 100%;
@@ -182,4 +175,3 @@ const doCreateAccount = async () => {
     color: white;
   }
   </style>
-  

@@ -1,0 +1,109 @@
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .2s;
+}
+
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
+
+.fade-speed-enter-active, .fade-speed-leave-active {
+  transition: opacity .05s;
+}
+
+.fade-speed-enter, .fade-speed-leave-to {
+  opacity: 0;
+}
+
+.myfade-enter-active {
+  transition: all .3s ease;
+}
+
+.myfade-leave-active {
+  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+
+.myfade-enter, .scale-leave-to {
+  opacity: 0;
+}
+
+.bounce-enter-active {
+  animation: bounce-in .5s;
+}
+
+.bounce-leave-active {
+  animation: bounce-in .5s reverse;
+}
+
+@keyframes bounce-in {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes scale-right {
+  0% {
+    width: 0;
+  }
+  50% {
+    width: 50%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+.slide-leave-active,
+.slide-enter-active {
+  transition: 0.4s;
+}
+
+.slide-enter {
+  transform: translate(100%, 0);
+}
+
+.slide-leave-to {
+  transform: translate(100%, 0);
+}
+
+.fold-leave-active,
+.fold-enter-active {
+  transition: height ease-in 4s;
+}
+
+.fold-enter-from,
+.fold-leave-to {
+  height: 2%;
+}
+
+fold-enter-to,
+.fold-leave-from {
+  height: 100%;
+}
+
+// random
+.animate-enter-active {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.animate-enter {
+  transform: translateX(-100%);
+  opacity: 0;
+}
+
+.animate-leave-active {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.animate-leave-to {
+  transform: translateX(100%);
+  opacity: 1;
+}
