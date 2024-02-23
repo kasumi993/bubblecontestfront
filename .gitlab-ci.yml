@@ -21,20 +21,20 @@ stages:
   - cypress
   - eslint
 
-services:
-  - docker:dind
+# services:
+#   - docker:dind
 
-deploy:
-  stage: deploy
-  image: docker:latest
+# deploy:
+#   stage: deploy
+#   image: docker:latest
 
-  before_script:
-    - echo "Logging in to GitLab Docker registry..."
-    - echo "$CI_REGISTRY_PASSWORD_GLOBAL" | docker login -u "$CI_REGISTRY_USER_GLOBAL" --password-stdin $CI_REGISTRY_GLOBAL
-  script:
-    - docker run -d -p 3000:3000 registry.gitlab.com/bubbleproject/bubbleback:main
-  only:
-    - feat/TestCI
+#   before_script:
+#     - echo "Logging in to GitLab Docker registry..."
+#     - echo "$CI_REGISTRY_PASSWORD_GLOBAL" | docker login -u "$CI_REGISTRY_USER_GLOBAL" --password-stdin $CI_REGISTRY_GLOBAL
+#   script:
+#     - docker run -d -p 3000:3000 registry.gitlab.com/bubbleproject/bubbleback:main
+#   only:
+#     - feat/TestCI
 
 
 # Job to run tests
