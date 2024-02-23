@@ -82,3 +82,6 @@ Le compte premium permet l'accès à des quiz supplémentaires.
 
 ## Branche par défaut 
 Veuillez vous placer sur la branche develop plutôt que main
+
+## Test Cypress
+Les tests cypress sont sur la branche feat/test-cypress. Ils sont valides en local, pas sur la ci, d'où le fait que la branche ne soit pas merge sur develop
