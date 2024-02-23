@@ -40,6 +40,11 @@ const router = createRouter({
           }
         },
         {
+          path: '/results/:id',
+          name: 'results',
+          component: ResponseView
+        },
+        {
           path: '/login',
           name: 'login',
           component: LoginView,

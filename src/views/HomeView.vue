@@ -4,8 +4,8 @@ import CardComponent from '../components/CardComponent.vue'
 
 import SurveyService from '@/services/surveyService'
 import { useRouter } from 'vue-router'
-import BannerCardComponent from "@/components/BannerCardComponent.vue";
-import CardListComponent from "@/components/cardListComponent.vue";
+import BannerCardComponent from '@/components/BannerCardComponent.vue'
+import CardListComponent from '@/components/cardListComponent.vue'
 
 const router = useRouter()
 const surveys = ref([])
@@ -34,12 +34,18 @@ onBeforeMount(() => {
   <div class="Home">
     <div class="intro-banner flex flex-row flex-nowrap gap-5 mt-10 ml-10 mr-10">
       <div class="banner-image">
-        <span class="style-text"> <img src="@/assets/stars-icon.svg" width="25">New </span>
-        <banner-card-component class="mt-6"></banner-card-component>
+        <span class="style-text"> <img
+          src="@/assets/stars-icon.svg"
+          width="25"
+        >New </span>
+        <banner-card-component class="mt-6" />
       </div>
       <div class="trend-list">
-        <span class="style-text"> <img src="@/assets/stars-icon.svg" width="25">Trending </span>
-        <card-list-component class="mt-6"></card-list-component>
+        <span class="style-text"> <img
+          src="@/assets/stars-icon.svg"
+          width="25"
+        >Trending </span>
+        <card-list-component class="mt-6" />
       </div>
     </div>
 

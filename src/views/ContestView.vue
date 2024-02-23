@@ -3,9 +3,11 @@
     class="contest px-32 pt-4"
   >
     <div class="title text-center pt-4 pb-14">
-      <h1 class="text-2xl text-gray-300 font-semibold">{{ surveyList.description}}</h1>
+      <h1 class="text-2xl text-gray-300 font-semibold">
+        {{ surveyList.description }}
+      </h1>
       <p class="text-white text-lg">
-        Tour : {{ currentIndex / 2 }} sur {{ Math.round(selection.length / 2 )}}
+        Tour : {{ currentIndex / 2 }} sur {{ Math.round(selection.length / 2 ) }}
       </p>
     </div>
     <div class="mx-32 md:mx-16 flex items-center gap-8 justify-between" v-if="displayedItems?.length">
@@ -22,7 +24,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import SurveyService from '@/services/surveyService'
-import ImageCardComponent from "@/components/imageCardComponent.vue";
+import ImageCardComponent from '@/components/imageCardComponent.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -42,10 +44,11 @@ const getSurveyElements = async () => {
     return
   }
   const response = await SurveyService.getSurveyElement(+route.params.id)   // Récupérer les éléments du concours
+
   while (response.options.length > 32) {                                    // Faire qu'il fasse max 32 éléments
     response.options.pop()
   }
-  surveyList.value = response;
+  surveyList.value = response
   const data = shuffleArray(response.options)
 
   const savedSelection = JSON.parse(localStorage.getItem('selection'))      // Récupérer tous les éléments du local storage si ils existent
