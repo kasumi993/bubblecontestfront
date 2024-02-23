@@ -32,8 +32,7 @@ deploy:
     - echo "Logging in to GitLab Docker registry..."
     - echo "$CI_REGISTRY_PASSWORD_GLOBAL" | docker login -u "$CI_REGISTRY_USER_GLOBAL" --password-stdin $CI_REGISTRY_GLOBAL
   script:
-    - docker pull registry.gitlab.com/bubbleproject/bubbleback:main
-    - docker-compose up -d
+    - docker run -d -p 3000:3000 registry.gitlab.com/bubbleproject/bubbleback:main
   only:
     - feat/TestCI
 
