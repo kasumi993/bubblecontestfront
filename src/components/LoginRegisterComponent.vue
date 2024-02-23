@@ -59,9 +59,9 @@
         </div>
         <div class="flex justify-between items-center">
           <button
-              type="button"
-              class="button secondary"
-              @click="loginMode = !loginMode"
+            type="button"
+            class="button secondary"
+            @click="loginMode = !loginMode"
           >
             {{ loginMode ? "Créer un compte" : "Annuler" }}
           </button>
@@ -79,24 +79,19 @@
 
 <script setup>
 import { ref } from 'vue'
-import {useAuthStore} from "@/stores/authStore.ts";
-import {useRoute, useRouter} from "vue-router";
+import { useAuthStore } from '@/stores/authStore.ts'
+import { useRoute, useRouter } from 'vue-router'
 
-const router = useRouter();
-const route = useRoute();
+const router = useRouter()
+const route = useRoute()
 
-const authStore = useAuthStore();
+const authStore = useAuthStore()
 
 const apiUrl = 'http://localhost:3000' // Votre API URL
-const currentUser = ref(null)
 const username = ref('')
 const password = ref('')
 const fullName = ref('')
 const loginMode = ref(true)
-
-const doLogout = () => {
-  authStore.logout();
-}
 
 const doLogin = async () => {
   try {
@@ -108,14 +103,14 @@ const doLogin = async () => {
       body: JSON.stringify({ email: username.value, password: password.value })
     })
 
-    if (!response.ok) alert("La connexion a échoué. Veuillez vérifier vos identifiants.")
+    if (!response.ok) alert('La connexion a échoué. Veuillez vérifier vos identifiants.')
 
     const data = await response.json()
-    console.log('data');
-    console.log(data);
-    authStore.login(data.token, data.record);
-    const redirectUrl = route.query.redirect ? route.query.redirect : '/home';
-    router.push(redirectUrl);
+    console.log('data')
+    console.log(data)
+    authStore.login(data.token, data.record)
+    const redirectUrl = route.query.redirect ? route.query.redirect : '/home'
+    router.push(redirectUrl)
   } catch (error) {
     console.log(error.message)
   }
