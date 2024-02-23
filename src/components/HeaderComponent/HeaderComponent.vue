@@ -22,6 +22,7 @@
           >Se connecter</div>
           <div v-else
               @click="logout"
+              data-test-id="logout-button"
               class="cursor-pointer text-white focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 hover:bg-gray-700 focus:ring-gray-800"
           >Se déconnecter</div>
           <button

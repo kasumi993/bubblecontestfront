@@ -14,10 +14,10 @@
             class="block text-sm font-medium leading-6 text-gray-900 mb-1"
           >Email</label>
           <input
-            id="username"
+            id="email"
             v-model="username"
             type="text"
-            name="username"
+            name="email"
             autocomplete="none"
             placeholder="Entrer votre mail "
             class="input-field mb-4"
@@ -62,12 +62,14 @@
               type="button"
               class="button secondary"
               @click="loginMode = !loginMode"
+              data-test-id="creation-button"
           >
             {{ loginMode ? "Créer un compte" : "Annuler" }}
           </button>
           <button
             type="submit"
             class="button"
+            data-test-id="login-button"
           >
             {{ loginMode ? "Se connecter" : "Créer un compte" }}
           </button>

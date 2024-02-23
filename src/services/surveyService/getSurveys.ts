@@ -14,8 +14,8 @@ export async function getSurveys() {
     }
 
     return await response.json()
-  } catch (error) {
-    console.error('Error fetching surveys:', error)
+  } catch (error: any) {
+    alert(error.message)
     throw error
   }
 }
