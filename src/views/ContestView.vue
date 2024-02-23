@@ -96,8 +96,7 @@ async function returnValues() {
   console.log('\n\n\n')
   console.log('returnValues', choosenItems.value)
   console.log('returnSelectionItems', returnSelectionItems)
-  //const response = await SurveyService.putChoosen(returnSelectionItems.value) // Renvoyer les éléments choisis pour les stats
-  //console.log('response', response)
+  SurveyService.putChoosen(returnSelectionItems.value)
   router.push({ name: 'results' })
 }
 
