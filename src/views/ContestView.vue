@@ -79,7 +79,7 @@ function showNextItems() {                                                      
     currentIndex.value += 2
     localStorage.setItem('currentIndex', JSON.stringify(currentIndex.value))
   } else {
-    if (selection.value.length === 2) {
+    if (selection.value.length <= 2) {
       returnValues()                                                              // En finale
     } else {
       selection.value = shuffleArray(choosenItems.value)
@@ -104,30 +104,22 @@ const imageCards = ref([]);
 const vsIcon = ref({});
 function chooseValue(item, index) {
   // Quand un élément du concours est choisi
-  console.log(imageCards.value);
-  console.log(imageCards.value[index].$el);
   // TODO change logic for image positions and use store instead of localstorage
   const unselectedCard = ref({});
-  console.log('imageCards.value[index + 1]');
-  console.log(imageCards.value[index + 1]);
-  console.log('imageCards.value[index - 1]');
-  console.log(imageCards.value[index - 1]);
   if (imageCards.value[index + 1]) {
     unselectedCard.value = imageCards.value[index + 1];
   }
   if (imageCards.value[index - 1]) {
     unselectedCard.value = imageCards.value[index - 1];
   }
-  console.log(unselectedCard.value);
-  unselectedCard.value.$el.classList.add('hide');
+  unselectedCard.value?.$el?.classList.add('hide');
   vsIcon.value.classList.add('hidden');
   const classValue = index === 1 ? 'slide-to-middle-from-right' : 'slide-to-middle-from-left';
-  imageCards.value[index].$el.classList.add(classValue);
+  imageCards.value[index]?.$el?.classList.add(classValue);
   setTimeout(() => {
-    unselectedCard.value.$el.classList.remove('hide');
-    vsIcon.value.classList.remove('hidden');
-    imageCards.value[index].$el.classList.remove(classValue);
-    console.log('chooseValue', item)
+    unselectedCard.value?.$el?.classList.remove('hide');
+    vsIcon.value?.classList.remove('hidden');
+    imageCards.value[index]?.$el?.classList.remove(classValue);
     choosenItems.value.push(item)
     localStorage.setItem('choosenItems', JSON.stringify(choosenItems.value))
     const existingItem = returnSelectionItems.value.find(element => element.id === item.option_id)  // Vérifier si l'élément existe déjà
