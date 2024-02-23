@@ -78,3 +78,7 @@ Pour utiliser l'application, il est obligatoire de créer un compte. Nous avons 
 Pour les tests sonarcube, vous pouvez rester sur la branche main ou develop.
 
 Le compte premium permet l'accès à des quiz supplémentaires.
+
+
+## Branche par défaut 
+Veuillez vous placer sur la branche develop plutôt que main
