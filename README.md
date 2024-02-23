@@ -1,72 +1,74 @@
-# pocoProject
+# Bubble Quiz
 
-This template should help get you started developing with Vue 3 in Vite.
+## Pré-requis
 
-## Recommended IDE Setup
+Avant de commencer, assurez-vous d'avoir les pré-requis suivants installés sur votre machine :
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+- **Node.js** : La version 18.17.1 est recommandée pour ce projet. Vous pouvez télécharger Node.js depuis [le site officiel](https://nodejs.org/).
+- **API "bubbleback"** : Il est nécessaire de lancer l'API "Bubbleback" avant de démarrer le projet. Pour cela, veuillez vous référer au repository de l'API pour obtenir des instructions détaillées sur la manière de la lancer. `https://gitlab.com/bubbleproject/bubbleback`
 
-## Type Support for `.vue` Imports in TS
+## Technologies Utilisées
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+Ce projet utilise les technologies suivantes :
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+- **Vue 3** : Un framework progressif pour construire des interfaces utilisateur.
+- **Pinia** : La bibliothèque de gestion d'état officielle pour Vue.js.
+- **Vite** : Un outil de build qui vise à fournir une expérience de développement plus rapide pour les projets modernes.
+- **Vitest** : Un framework de test unitaire pour Vue.js, optimisé pour Vite.
+- **SonarQube** : Un outil d'analyse de la qualité du code qui effectue des revues automatiques avec des tests statiques du code pour détecter des bugs, des problèmes de conception dans le code, et des vulnérabilités de sécurité.
+- **ESLint** : Un outil d'analyse statique du code pour identifier les modèles problématiques trouvés dans le code JavaScript.
+- **Cypress** : Un framework de test end-to-end pour le web.
+- **Tailwind CSS** : Un framework CSS utility-first pour créer rapidement des designs sans avoir à quitter votre HTML.
+- **Sass** : Une techonologie basée sur css pour le style.
 
-1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+## Lancement du Projet
 
-## Customize configuration
+Pour lancer le projet, suivez ces étapes :
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+1. Clonez le dépôt Git.
+2. Assurez vous de cloner le depot back et de suivre les instrcutions de lancement avant de proceder à l'etape 3 (https://gitlab.com/bubbleproject/bubbleback).
+3. Ouvrez un terminal à la racine du projet.
+4. Créez le fichier .env et ajoutez la variable suivante : 
 
-## Project Setup
+`VITE_API_URI="URL_API"`
+_(par défaut URL_API = http://localhost:3000)_
 
-```sh
-npm install
-```
+ex: VITE_API_URI="http://localhost:3000"
 
-### Compile and Hot-Reload for Development
+4. Installez les dépendances en exécutant :
 
-```sh
-npm run dev
-```
+`npm install`
 
-### Type-Check, Compile and Minify for Production
 
-```sh
-npm run build
-```
+5. Lancez le serveur de développement avec :
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
+`npm run dev`
 
-```sh
-npm run test:unit
-```
 
-### Run End-to-End Tests with [Cypress](https://www.cypress.io/)
+## Tests
 
-```sh
-npm run test:e2e:dev 
-```
-or (command line test)
-```sh
-npm cypress run 
-```
+Les tests sont effectués via GitLab CI au moment des pushs. Ils incluent :
 
-This runs the end-to-end tests against the Vite development server.
-It is much faster than the production build.
+- Tests unitaires avec **Vitest**.
+- Analyse de la qualité du code avec **SonarQube**.
+- Tests E2E avec **Cypress**.
 
-But it's still recommended to test the production build with `test:e2e` before deploying (e.g. in CI environments):
+Pour lancer les tests manuellement :
 
-```sh
-npm run build
-npm run test:e2e
-```
+- Pour les tests unitaires : `npm run test:unit`
+- Pour les tests E2E : `npm run test:e2e`
 
-### Lint with [ESLint](https://eslint.org/)
 
-```sh
-npm run lint
-```
+## Utilisation
+
+Pour utiliser l'application, il est obligatoire de créer un compte. Nous avons également créé deux comptes de test pour faciliter la prise en main (vous pouvez également créer un utilisateur sur le site en appuyant sur 'creer un compte'):
+
+**Utilisateur Gratuit** :
+- Login : user@test.com
+- Mot de passe : testtest
+
+**Utilisateur "Premium"** :
+- Login : premium@test.com
+- Mot de passe : testtest
+
+Le compte premium permet l'accès à des quiz supplémentaires.
