@@ -58,6 +58,7 @@ const getSurveyElements = async () => {
     return
   }
   const response = await SurveyService.getSurveyElement(+route.params.id)   // Récupérer les éléments du concours
+
   while (response.options.length > 32) {                                    // Faire qu'il fasse max 32 éléments
     response.options.pop()
   }
