@@ -73,4 +73,8 @@ Pour utiliser l'application, il est obligatoire de créer un compte. Nous avons 
 - Login : premium@test.com
 - Mot de passe : testtest
 
+
+**NB:** pour tester l'interface, il est mieux de se placer sur la branche feat/add-contest-page , cette branceh contient le système de connextion fonctionnel, l'animation du site et autres. 
+Pour les tests sonarcube, vous pouvez rester sur la branche main ou develop.
+
 Le compte premium permet l'accès à des quiz supplémentaires.
