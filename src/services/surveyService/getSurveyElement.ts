@@ -9,12 +9,14 @@ export async function getSurveyElement(surveyId: number) {
   try {
     const response = await fetch(`${origin}/surveys/${surveyId}`, requestOptions)
     if (!response.ok) {
+      console.log(response)
       throw new Error(`Failed to fetch survey element: ${response.statusText}`)
     }
 
     return await response.json()
   } catch (error) {
-    console.error('Error fetching survey element:', error)
+    
+    alert("vous n'avez pas accès à ce sondage car vous n'êtes pas Premium. Veuillez vous abonner pour y accéder. 🫧")
     throw error
   }
 }

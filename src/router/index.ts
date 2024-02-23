@@ -32,9 +32,9 @@ const router = createRouter({
           }
         },
         {
-          path: '/results',
+          path: '/results/:id',
           name: 'results',
-          component: ContestView,
+          component: ResponseView,
           meta: {
             auth: true
           }

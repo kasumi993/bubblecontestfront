@@ -13,15 +13,9 @@ const surveys = ref([])
 const getSurveysList = async () => {
   const response = await SurveyService.getSurveys()
   surveys.value = response
-  console.log('surveys')
-  console.log(surveys)
-  console.log('surveys.value')
-  console.log(surveys.value)
 }
 
 const goToContest = (param) => {
-  console.log('param')
-  console.log(param)
   localStorage.setItem('choosenItems', JSON.stringify([]))
   localStorage.setItem('currentIndex', JSON.stringify(0))
   localStorage.setItem('selection', JSON.stringify([]))
