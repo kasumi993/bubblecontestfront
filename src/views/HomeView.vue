@@ -5,7 +5,8 @@ import { headersWithAuthorization } from '../utils/index'
 const surveys = ref([])
 
 const getSurveys = async () => {
-  const origin = import.meta.env.VITE_API_URI
+  try{
+    const origin = import.meta.env.VITE_API_URI
   const requestOptions = {
     method: 'GET',
     headers: headersWithAuthorization
@@ -13,6 +14,10 @@ const getSurveys = async () => {
   const response = await fetch(`${origin}/surveys`, requestOptions)
   const _surveys = await response.json()
   surveys.value = _surveys
+  } catch (error) {
+    alert(error.message)
+  
+  }
 }
 
 onBeforeMount(() => {

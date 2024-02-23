@@ -146,6 +146,7 @@ const doCreateAccount = async () => {
   
     await doLogin() 
   } catch (error) {
+    console.log(error)
     alert(error.message)
   }
 }
