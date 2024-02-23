@@ -14,7 +14,6 @@ const getSurveyElements = async () => {
   }
   const response = await SurveyService.getSurveyElement(+route.params.id)   // Récupérer les éléments du concours
   listElements.value = response.options
-  console.log('response', listElements)
 }
 
 onMounted(async () => {

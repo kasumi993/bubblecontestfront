@@ -83,7 +83,6 @@ function showNextItems() {                                                      
       returnValues()                                                              // En finale
     } else {
       selection.value = shuffleArray(choosenItems.value)
-      console.log('selection', selection.value)
       choosenItems.value = []
       currentIndex.value = 0
       localStorage.setItem('selection', JSON.stringify(selection.value))
@@ -93,9 +92,6 @@ function showNextItems() {                                                      
 }
 
 async function returnValues() {
-  console.log('\n\n\n')
-  console.log('returnValues', choosenItems.value)
-  console.log('returnSelectionItems', returnSelectionItems)
   SurveyService.putChoosen(returnSelectionItems.value)
   router.push({ name: 'results' })
 }

@@ -136,12 +136,10 @@ export default {
   },
   methods: {
     logout() {
-      console.log('loggin out');
       this.authStore.logout();
       this.$router.push('/login');
     },
     login() {
-      console.log('going to login page');
       this.$router.push('/login');
     }
   }
